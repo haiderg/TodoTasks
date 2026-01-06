@@ -1,12 +1,26 @@
 
+using Microsoft.EntityFrameworkCore;
+using TodoTasks.Application.Interfaces;
+using TodoTasks.Application.Services;
+using TodoTasks.Domain.Repositories;
+using TodoTasks.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+//builder.Services.AddDbContext<AppDbContext>(options => 
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("TodoTasksConnection")));
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+   options.UseSqlServer(builder.Configuration.GetConnectionString("TodoTasksConnection"), b => b.MigrationsAssembly("TodoTasks.API"));
+});
+
+builder.Services.AddScoped<ITodoTaskRepository, SqlServerTodoTaskRepository>();
+builder.Services.AddScoped<ITodoTaskService, TodoTaskService>();
+builder.Services.AddControllers();
 builder.Services.AddOpenApi();
-builder.Services.AddSwaggerGen();
-builder.Services.
+builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();
 
@@ -14,35 +28,13 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    app.UseSwagger();
-    app.UseSwaggerUI();
-
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/openapi/v1.json", "TodoTasks API v1");
+    });
 }
 
 app.UseHttpsRedirection();
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet(pattern: "/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(start: 1, count: 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(minValue: -20, maxValue: 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+app.MapControllers();
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

@@ -1,9 +1,11 @@
 using TodoTasks.Domain.Entities;
 using TodoTasks.Domain.Repositories;
+using TodoTasks.Domain.ValueObjects;
+using TodoTasks.Application.Interfaces;
 
 namespace TodoTasks.Application.Services;
 
-public class TodoTaskService
+public class TodoTaskService : ITodoTaskService
 {
     private readonly ITodoTaskRepository _repository;
 
@@ -26,11 +28,6 @@ public class TodoTaskService
     public async Task<IEnumerable<TodoTask>> GetAllTasksAsync()
     {
         return await _repository.GetAllAsync();
-    }
-
-    public async Task<IEnumerable<TodoTask>> GetTasksByAssigneeAsync(int assignedTo)
-    {
-        return await _repository.GetByAssignedToAsync(assignedTo);
     }
 
     public async Task UpdateTaskAsync(int id, TodoTaskUpdateRequest request)
