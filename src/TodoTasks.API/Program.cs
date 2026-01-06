@@ -4,13 +4,11 @@ using TodoTasks.Application.Interfaces;
 using TodoTasks.Application.Services;
 using TodoTasks.Domain.Repositories;
 using TodoTasks.Infrastructure.Repositories;
+using TodoTasks.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-//builder.Services.AddDbContext<AppDbContext>(options => 
-//    options.UseSqlServer(builder.Configuration.GetConnectionString("TodoTasksConnection")));
-
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
    options.UseSqlServer(builder.Configuration.GetConnectionString("TodoTasksConnection"), b => b.MigrationsAssembly("TodoTasks.API"));

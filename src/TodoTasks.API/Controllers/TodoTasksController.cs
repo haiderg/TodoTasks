@@ -1,15 +1,24 @@
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using TodoTasks.Application.Interfaces;
+using TodoTasks.Domain.Entities;
 
 namespace TodoTasks.API.Controllers;
 
 [ApiController]
-[Route("/api")]
+[Route("api/[controller]")]
 public class TodoTasksController : ControllerBase
 {
-    [HttpGet("TodoTasks")]
-    public ActionResult TodoTasks()
+    private readonly ITodoTaskService _todoTasksService;
+
+    public TodoTasksController(ITodoTaskService todoTaskService)
     {
-        return Content("Tasks");
+        _todoTasksService = todoTaskService;
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<TodoTask>>> GetTodoTasks()
+    {
+        var tasks = await _todoTasksService.GetAllTasksAsync();
+        return Ok(tasks);
     }
 }

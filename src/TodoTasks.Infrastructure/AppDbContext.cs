@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using TodoTasks.Domain.Entities;
 
+namespace TodoTasks.Infrastructure;
+
 public class AppDbContext : DbContext
 {
     private readonly DbContextOptions? _options;
@@ -12,7 +14,7 @@ public class AppDbContext : DbContext
         _options = options;
     }
 
-    public DbSet<TodoTasks.Domain.Entities.TodoTask> TodoTasks { get; set; }
+    public DbSet<TodoTask> TodoTasks { get; set; }
     public DbSet<Category> Categories { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
