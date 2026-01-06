@@ -1,6 +1,6 @@
 namespace TodoTasks.Domain.ValueObjects;
 
-public class TodoTaskCreateRequest
+public record TodoTaskCreateRequest
 {
     public required string Title { get; set; }
     public string? Description { get; set; }

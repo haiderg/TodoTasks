@@ -1,6 +1,6 @@
 namespace TodoTasks.Domain.ValueObjects;
 
-public class CategoryUpdateRequest
+public record CategoryUpdateRequest
 {
     public string? Name { get; set; }
     public string? Description { get; set; }
