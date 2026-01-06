@@ -5,13 +5,12 @@ namespace TodoTasks.Infrastructure;
 
 public class AppDbContext : DbContext
 {
-    private readonly DbContextOptions? _options;
-
+    
     public AppDbContext() { }
 
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
-        _options = options;
+        
     }
 
     public DbSet<TodoTask> TodoTasks { get; set; }
