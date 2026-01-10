@@ -34,9 +34,9 @@ public class SqlServerCategoryRepository : ICategoryRepository
         return await _context.Categories.AnyAsync(x => x.Id == id);
     }
 
-    public Task<IEnumerable<Category>> GetAllAsync()
+    public async Task<IEnumerable<Category>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await _context.Categories.ToListAsync();
     }
 
     public async Task<Category?> GetByIdAsync(int id)
@@ -44,8 +44,9 @@ public class SqlServerCategoryRepository : ICategoryRepository
         return await _context.Categories.FindAsync(id);
     }
 
-    public Task UpdateAsync(Category category)
+    public async Task UpdateAsync(Category category)
     {
-        throw new NotImplementedException();
+       _context.Categories.Update(category);
+        await _context.SaveChangesAsync();
     }
 }

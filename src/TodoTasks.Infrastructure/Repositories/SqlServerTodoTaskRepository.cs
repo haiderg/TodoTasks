@@ -7,7 +7,6 @@ namespace TodoTasks.Infrastructure.Repositories;
 public class SqlServerTodoTaskRepository : ITodoTaskRepository
 {
     private readonly AppDbContext _context;
-
     public SqlServerTodoTaskRepository(AppDbContext context)
     {
         _context = context;

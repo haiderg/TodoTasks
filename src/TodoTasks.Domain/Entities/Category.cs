@@ -1,4 +1,5 @@
 using TodoTasks.Domain.ValueObjects;
+using TodoTasks.Domain.Enums;
 
 namespace TodoTasks.Domain.Entities;
 
@@ -6,21 +7,21 @@ public class Category : Entity
 {
     public string Name { get; private set; } = string.Empty;
     public string? Description { get; private set; }
-    public string Color { get; private set; } = "#000000";
+    public TaskColorEnum Color { get; private set; }
 
     private Category() { } // For EF Core
 
-    public Category(string name, string? description = null, string color = "#000000")
+    private Category(CategorySaveRequest request)
     {
-        if (string.IsNullOrWhiteSpace(name))
-            throw new ArgumentException("Category name cannot be empty", nameof(name));
+        if (string.IsNullOrWhiteSpace(request.Name))
+            throw new ArgumentException("Category name cannot be empty", nameof(request.Name));
         
-        if (name.Length > 30)
-            throw new ArgumentException("Category name cannot exceed 30 characters", nameof(name));
+        if (request.Name.Length > 30)
+            throw new ArgumentException("Category name cannot exceed 30 characters", nameof(request.Name));
         
-        Name = name.Trim();
-        Description = description?.Trim();
-        Color = color;
+        Name = request.Name.Trim();
+        Description = request.Description?.Trim();
+        Color = request.Color;
     }
 
     public void Update(CategoryUpdateRequest request)
@@ -42,8 +43,11 @@ public class Category : Entity
         if (request.HasColor)
             Color = request.Color!;
 
-        SetUpdatedAt();
+        UpdatedAt = DateTime.UtcNow;
     }
 
-
+    public static Category Create(CategorySaveRequest request)
+    {
+        return new Category(request);
+    }
 }

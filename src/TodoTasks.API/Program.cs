@@ -1,4 +1,3 @@
-
 using Microsoft.EntityFrameworkCore;
 using TodoTasks.Application.Interfaces;
 using TodoTasks.Application.Services;
@@ -16,6 +15,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<ITodoTaskRepository, SqlServerTodoTaskRepository>();
 builder.Services.AddScoped<ITodoTaskService, TodoTaskService>();
+builder.Services.AddScoped<ICategoryRepository, SqlServerCategoryRepository>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
@@ -34,5 +35,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.MapControllers();
+app.UseCors(options => options.AllowAnyOrigin());
 
 app.Run();

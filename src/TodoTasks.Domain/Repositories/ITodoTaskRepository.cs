@@ -4,8 +4,8 @@ namespace TodoTasks.Domain.Repositories;
 
 public interface ITodoTaskRepository
 {
-    Task<TodoTask?> GetByIdAsync(int id);
     Task<IEnumerable<TodoTask>> GetAllAsync();
+    Task<TodoTask?> GetByIdAsync(int id);
     Task<IEnumerable<TodoTask>> GetByCategoryAsync(int categoryId);
     Task<TodoTask> AddAsync(TodoTask todoTask);
     Task UpdateAsync(TodoTask todoTask);

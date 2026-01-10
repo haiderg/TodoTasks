@@ -8,7 +8,6 @@ namespace TodoTasks.Application.Services;
 public class TodoTaskService : ITodoTaskService
 {
     private readonly ITodoTaskRepository _repository;
-
     public TodoTaskService(ITodoTaskRepository repository)
     {
         _repository = repository;

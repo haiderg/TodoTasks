@@ -6,13 +6,13 @@ public class TodoTask : Entity
 {
     public string Title { get; private set; } = string.Empty;
     public string? Description { get; private set; }
-    public int AssignedTo { get; set; }
-    public DateTime? ReminderAt { get; set; }
+    public int AssignedTo { get; private set; }
+    public DateTime? ReminderAt { get; private set; }
     public bool IsCompleted { get; private set; }
     public DateTime? DueDate { get; private set; }
     public DateTime? CompletedAt { get; private set; }
-    public int CategoryId { get; set; }
-    public Category Category { get; set; } = null!;
+    public int CategoryId { get; private set; }
+    public Category Category { get; private set; } = null!;
 
     private TodoTask() { } // For EF Core
 
@@ -48,7 +48,7 @@ public class TodoTask : Entity
 
         IsCompleted = true;
         CompletedAt = DateTime.UtcNow;
-        SetUpdatedAt();
+        UpdatedAt = DateTime.UtcNow;
     }
 
     public void Update(TodoTaskUpdateRequest request)
@@ -82,7 +82,7 @@ public class TodoTask : Entity
         if (request.HasDueDate)
             DueDate = request.DueDate;
 
-        SetUpdatedAt();
+        UpdatedAt = DateTime.UtcNow;
     }
 
     public bool IsOverdue => DueDate.HasValue && !IsCompleted && DateTime.UtcNow > DueDate.Value;
