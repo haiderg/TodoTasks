@@ -7,6 +7,7 @@ namespace TodoTasks.Domain.Repositories;
 public interface ICategoryRepository
 {
     Task<IEnumerable<Category>> GetAllAsync();
+    Task<PagedResult<Category>> GetPagedAsync(PaginationRequest request);
     Task<Category?> GetByIdAsync(int id);
     Task<Category> AddAsync(Category category);
     Task UpdateAsync(Category category);

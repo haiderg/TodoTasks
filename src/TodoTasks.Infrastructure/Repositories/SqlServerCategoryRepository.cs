@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using TodoTasks.Domain.Entities;
 using TodoTasks.Domain.Repositories;
+using TodoTasks.Domain.ValueObjects;
 
 namespace TodoTasks.Infrastructure.Repositories;
 
@@ -44,9 +45,25 @@ public class SqlServerCategoryRepository : ICategoryRepository
         return await _context.Categories.FindAsync(id);
     }
 
+    public async Task<PagedResult<Category>> GetPagedAsync(PaginationRequest request)
+    {
+        int totalCount = await _context.Categories.CountAsync();
+        var items = await _context.Categories
+            .Skip((request.PageNumber - 1) * request.PageSize)
+            .Take(request.PageSize).ToListAsync();
+
+        return new PagedResult<Category>
+        {
+            Items = items,
+            TotalCount = totalCount,
+            PageNumber = request.PageNumber,
+            PageSize = request.PageSize
+        };
+    }
+        
     public async Task UpdateAsync(Category category)
     {
-       _context.Categories.Update(category);
+        _context.Categories.Update(category);
         await _context.SaveChangesAsync();
     }
 }

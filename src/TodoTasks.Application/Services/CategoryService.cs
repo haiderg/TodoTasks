@@ -32,6 +32,11 @@ public class CategoryService : ICategoryService
         return await _repository.GetByIdAsync(id);
     }
 
+    public async Task<PagedResult<Category>> GetPagedCategoriesAsync(PaginationRequest request)
+    {
+        return await _repository.GetPagedAsync(request);
+    }
+
     public async Task UpdateCategoryAsync(int id, CategoryUpdateRequest request)
     {
         var category = await _repository.GetByIdAsync(id);

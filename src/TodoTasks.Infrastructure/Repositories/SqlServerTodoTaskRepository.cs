@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using TodoTasks.Domain.Entities;
 using TodoTasks.Domain.Repositories;
+using TodoTasks.Domain.ValueObjects;
 
 namespace TodoTasks.Infrastructure.Repositories;
 
@@ -20,6 +21,23 @@ public class SqlServerTodoTaskRepository : ITodoTaskRepository
     public async Task<IEnumerable<TodoTask>> GetAllAsync()
     {
         return await _context.TodoTasks.ToListAsync();
+    }
+
+    public async Task<PagedResult<TodoTask>> GetPagedAsync(PaginationRequest request)
+    {
+        var totalCount = await _context.TodoTasks.CountAsync();
+        var items = await _context.TodoTasks
+            .Skip((request.PageNumber - 1) * request.PageSize)
+            .Take(request.PageSize)
+            .ToListAsync();
+
+        return new PagedResult<TodoTask>
+        {
+            Items = items,
+            TotalCount = totalCount,
+            PageNumber = request.PageNumber,
+            PageSize = request.PageSize
+        };
     }
 
     public async Task<IEnumerable<TodoTask>> GetByAssignedToAsync(int assignedTo)

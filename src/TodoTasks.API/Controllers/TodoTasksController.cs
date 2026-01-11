@@ -23,7 +23,15 @@ public class TodoTasksController : ControllerBase
         return Ok(tasks);
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("paged")]
+    public async Task<ActionResult<PagedResult<TodoTask>>> GetPagedTodoTasks([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 20)
+    {
+        var request = new PaginationRequest { PageNumber = pageNumber, PageSize = pageSize };
+        var result = await _todoTasksService.GetPagedTasksAsync(request);
+        return Ok(result);
+    }
+
+    [HttpGet("{id:int}")]
     public async Task<ActionResult<TodoTask>> GetTodoTask(int id)
     {
         var task = await _todoTasksService.GetTaskAsync(id);
@@ -37,21 +45,21 @@ public class TodoTasksController : ControllerBase
         return CreatedAtAction(nameof(GetTodoTask), new { id = task.Id }, task);
     }
 
-    [HttpPut("{id}")]
+    [HttpPut("{id:int}")]
     public async Task<IActionResult> UpdateTodoTask(int id, TodoTaskUpdateRequest request)
     {
         await _todoTasksService.UpdateTaskAsync(id, request);
         return NoContent();
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("{id:int}")]
     public async Task<IActionResult> DeleteTodoTask(int id)
     {
         await _todoTasksService.DeleteTaskAsync(id);
         return NoContent();
     }
 
-    [HttpPost("{id}/complete")]
+    [HttpPost("{id:int}/complete")]
     public async Task<IActionResult> CompleteTodoTask(int id)
     {
         await _todoTasksService.CompleteTaskAsync(id);

@@ -29,6 +29,11 @@ public class TodoTaskService : ITodoTaskService
         return await _repository.GetAllAsync();
     }
 
+    public async Task<PagedResult<TodoTask>> GetPagedTasksAsync(PaginationRequest request)
+    {
+        return await _repository.GetPagedAsync(request);
+    }
+
     public async Task UpdateTaskAsync(int id, TodoTaskUpdateRequest request)
     {
         var task = await _repository.GetByIdAsync(id);

@@ -8,7 +8,7 @@ public record CategoryUpdateRequest
     public string? Description { get; set; }
     public TaskColorEnum Color { get; set; }
 
-    public bool HasName => !string.IsNullOrEmpty(Name);
-    public bool HasDescription => Description != null;
-    public bool HasColor => Enum.IsDefined(typeof(TaskColorEnum), Color);
+    internal bool HasName => !string.IsNullOrEmpty(Name);
+    internal bool HasDescription => Description != null;
+    internal bool HasColor => Enum.IsDefined(typeof(TaskColorEnum), Color);
 }

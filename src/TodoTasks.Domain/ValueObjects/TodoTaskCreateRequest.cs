@@ -9,6 +9,5 @@ public record TodoTaskCreateRequest
     public DateTime? DueDate { get; set; }
     public int? CategoryId { get; set; }
 
-
-    public bool HasTitle => !string.IsNullOrWhiteSpace(Title);
+    internal bool HasTitle => !string.IsNullOrWhiteSpace(Title);
 }

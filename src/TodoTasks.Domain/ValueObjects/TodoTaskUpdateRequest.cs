@@ -9,10 +9,10 @@ public record TodoTaskUpdateRequest
     public DateTime? ReminderAt { get; set; }
     public DateTime? DueDate { get; set; }
 
-    public bool HasTitle => !string.IsNullOrEmpty(Title);
-    public bool HasDescription => Description != null;
-    public bool HasAssignedTo => AssignedTo.HasValue;
-    public bool HasCategoryId => CategoryId.HasValue;
-    public bool HasReminderAt => ReminderAt.HasValue;
-    public bool HasDueDate => DueDate.HasValue;
+    internal bool HasTitle => !string.IsNullOrEmpty(Title);
+    internal bool HasDescription => Description != null;
+    internal bool HasAssignedTo => AssignedTo.HasValue;
+    internal bool HasCategoryId => CategoryId.HasValue;
+    internal bool HasReminderAt => ReminderAt.HasValue;
+    internal bool HasDueDate => DueDate.HasValue;
 }

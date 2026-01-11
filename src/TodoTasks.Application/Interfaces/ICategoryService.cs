@@ -12,10 +12,11 @@ public interface ICategoryService
 
     Task<IEnumerable<Category>> GetAllCategoriesAsync();
       
-    Task UpdateCategoryAsync(int id, CategoryUpdateRequest category);
+    Task UpdateCategoryAsync(int id, CategoryUpdateRequest request);
 
     Task DeleteCategoryAsync(int id);
 
+    Task<PagedResult<Category>> GetPagedCategoriesAsync(PaginationRequest request);
 
 
 }
