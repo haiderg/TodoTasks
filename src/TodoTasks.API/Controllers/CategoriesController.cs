@@ -24,10 +24,12 @@ public class CategoriesController : ControllerBase
         return Ok(categories);
     }
 
-    [HttpGet("{id:int}")]
+    [HttpGet("{id:int}", Name = "GetCategoryAsync")]
     public async Task<ActionResult<Category>> GetCategoryAsync(int id)
     {
         var category = await _categoryService.GetCategoryAsync(id);
+        if (category == null)
+            return NotFound();
         return Ok(category);
     }
 
@@ -35,7 +37,7 @@ public class CategoriesController : ControllerBase
     public async Task<ActionResult<Category>> CreateCategoryAsync([FromBody] CategorySaveRequest request)
     {
         var category = await _categoryService.CreateCategoryAsync(request);
-        return CreatedAtAction(nameof(GetCategoryAsync), new { id = category.Id }, category);
+        return CreatedAtRoute("GetCategoryAsync", new { id = category.Id }, category);
     }
 
     [HttpPut("{id:int}")]
