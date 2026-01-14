@@ -1,9 +1,10 @@
 using Microsoft.EntityFrameworkCore;
+using TodoTasks.API.Middleware;
 using TodoTasks.Application.Interfaces;
 using TodoTasks.Application.Services;
 using TodoTasks.Domain.Repositories;
-using TodoTasks.Infrastructure.Repositories;
 using TodoTasks.Infrastructure;
+using TodoTasks.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,8 @@ builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();
 
+app.UseMiddleware<GlobalExceptionMiddleware>();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -34,7 +37,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.MapControllers();
 app.UseCors(options => options.AllowAnyOrigin());
+app.MapControllers();
 
 app.Run();
