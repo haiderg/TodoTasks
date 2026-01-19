@@ -5,4 +5,9 @@
     <Project Path="src/TodoTasks.Domain/TodoTasks.Domain.csproj" />
     <Project Path="src/TodoTasks.Infrastructure/TodoTasks.Infrastructure.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/TodoTasks.Domain.Tests/TodoTasks.Domain.Tests.csproj" />
+    <Project Path="tests/TodoTasks.Application.Tests/TodoTasks.Application.Tests.csproj" />
+    <Project Path="tests/TodoTasks.API.Tests/TodoTasks.API.Tests.csproj" />
+  </Folder>
 </Solution>
