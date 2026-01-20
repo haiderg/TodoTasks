@@ -18,11 +18,13 @@ src/
 
 - **Clean Architecture** with dependency inversion
 - **Domain-Driven Design** principles
+- **JWT Authentication** for secure API access
 - **Entity Framework Core 10** with SQL Server
 - **Repository Pattern** for data access abstraction
 - **Rich Domain Models** with business logic encapsulation
 - **Value Objects** for type-safe operations
-- **OpenAPI/Swagger** documentation
+- **Swagger/OpenAPI** documentation with Bearer token support
+- **Unit Tests** for Application and Domain layers
 - **Dependency Injection** throughout all layers
 
 ## 🛠️ Technologies
@@ -31,7 +33,9 @@ src/
 - **ASP.NET Core Web API** - RESTful API framework
 - **Entity Framework Core 10** - ORM for data access
 - **SQL Server** - Database provider
-- **Swagger/OpenAPI** - API documentation
+- **JWT Bearer Authentication** - Secure token-based authentication
+- **Swashbuckle.AspNetCore 6.9** - API documentation with Bearer support
+- **xUnit** - Unit testing framework
 - **C# 13** - Latest language features
 
 ## 📋 Domain Model
@@ -89,6 +93,12 @@ src/
 ### API Documentation
 Navigate to `/swagger` when running in development mode to explore the API endpoints.
 
+**Testing Protected Endpoints:**
+1. Use `/api/auth/login` to get a JWT token
+2. Click the **Authorize** button in Swagger UI
+3. Enter your JWT token
+4. Test protected endpoints
+
 ## 📊 Sample Data
 
 The application includes seed data with:
@@ -97,6 +107,13 @@ The application includes seed data with:
 
 ## 🎯 API Endpoints
 
+### Authentication
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/auth/register` | Register new user |
+| POST | `/api/auth/login` | Login and get JWT token |
+
+### Tasks (Protected)
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | GET | `/api/todotasks` | Get all tasks |
@@ -106,14 +123,25 @@ The application includes seed data with:
 | DELETE | `/api/todotasks/{id}` | Delete task |
 | POST | `/api/todotasks/{id}/complete` | Mark task as complete |
 
+### Categories (Protected)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/categories` | Get all categories |
+| GET | `/api/categories/{id}` | Get category by ID |
+| POST | `/api/categories` | Create new category |
+| PUT | `/api/categories/{id}` | Update existing category |
+| DELETE | `/api/categories/{id}` | Delete category |
+
 ## 🏆 Skills Demonstrated
 
 ### ASP.NET Core Expertise
 - ✅ **Web API Development** - RESTful API design
+- ✅ **JWT Authentication** - Token-based security
 - ✅ **Dependency Injection** - Built-in DI container usage
 - ✅ **Configuration Management** - appsettings.json handling
 - ✅ **Middleware Pipeline** - HTTP request processing
 - ✅ **Model Binding & Validation** - Request/response handling
+- ✅ **Swagger Integration** - API documentation with Bearer auth
 
 ### Architecture & Design Patterns
 - ✅ **Clean Architecture** - Layered application design
@@ -129,6 +157,12 @@ The application includes seed data with:
 - ✅ **Seed Data** - Initial data population
 - ✅ **Async Operations** - Non-blocking database operations
 
+### Testing
+- ✅ **Unit Tests** - Application layer service tests
+- ✅ **Domain Tests** - Domain entity and value object tests
+- ✅ **xUnit Framework** - Modern testing practices
+- ✅ **Test Isolation** - Independent test execution
+
 ### Modern C# Features
 - ✅ **Nullable Reference Types** - Null safety
 - ✅ **Record Types** - Immutable data structures
@@ -136,11 +170,12 @@ The application includes seed data with:
 - ✅ **Primary Constructors** - Concise constructor syntax
 - ✅ **Global Using Statements** - Reduced boilerplate
 
-## 📈 Future Enhancements
+## 📈 Implemented Features
 
-- [ ] Authentication & Authorization (JWT)
+- ✅ **Authentication & Authorization (JWT)** - Secure token-based auth
+- ✅ **Unit Tests** - Application and Domain layer coverage
 - [ ] CQRS with MediatR
-- [ ] Unit & Integration Tests
+- [ ] Integration Tests
 - [ ] Docker containerization
 - [ ] CI/CD pipeline
 - [ ] Caching with Redis
