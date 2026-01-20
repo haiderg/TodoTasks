@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TodoTasks.Application.Interfaces;
 using TodoTasks.Domain.Entities;
@@ -6,6 +7,7 @@ using TodoTasks.Domain.ValueObjects;
 namespace TodoTasks.API.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("api/[controller]")]
 public class TodoTasksController : ControllerBase
 {

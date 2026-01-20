@@ -3,8 +3,10 @@ using TodoTasks.Domain.Entities;
 using TodoTasks.Application.Interfaces;
 using TodoTasks.Domain.ValueObjects;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 
 [ApiController]
+[Authorize]
 [Route("api/[controller]")]
 public class CategoriesController : ControllerBase
 {
