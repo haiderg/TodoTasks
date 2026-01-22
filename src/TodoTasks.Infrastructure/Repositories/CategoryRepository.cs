@@ -5,10 +5,10 @@ using TodoTasks.Domain.ValueObjects;
 
 namespace TodoTasks.Infrastructure.Repositories;
 
-public class SqlServerCategoryRepository : ICategoryRepository
+public class CategoryRepository : ICategoryRepository
 {
     private readonly AppDbContext _context;
-    public SqlServerCategoryRepository(AppDbContext context)
+    public CategoryRepository(AppDbContext context)
     {
         _context = context;
     }

@@ -5,10 +5,10 @@ using TodoTasks.Domain.ValueObjects;
 
 namespace TodoTasks.Infrastructure.Repositories;
 
-public class SqlServerTodoTaskRepository : ITodoTaskRepository
+public class TodoTaskRepository : ITodoTaskRepository
 {
     private readonly AppDbContext _context;
-    public SqlServerTodoTaskRepository(AppDbContext context)
+    public TodoTaskRepository(AppDbContext context)
     {
         _context = context;
     }

@@ -20,11 +20,11 @@ namespace TodoTasks.Infrastructure
 
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseSqlServer(configuration.GetConnectionString("TodoTasksConnection"), b => b.MigrationsAssembly("TodoTasks.API"));
+                options.UseNpgsql(configuration.GetConnectionString("PostgresConnection"), b => b.MigrationsAssembly("TodoTasks.API"));
             });
 
-            services.AddScoped<ITodoTaskRepository, SqlServerTodoTaskRepository>();
-            services.AddScoped<ICategoryRepository, SqlServerCategoryRepository>();
+            services.AddScoped<ITodoTaskRepository, TodoTaskRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             return services;
         }
